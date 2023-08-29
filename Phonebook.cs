@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Phonebook
+﻿namespace Phonebook
 {
     internal class Phonebook
     {
-        private static Phonebook instance;
+        #region Константы
+
+        private const string FilePath = "phonebook.txt";
+
+        #endregion
+
         private List<Abonent> abonents;
-        private const string filePath = "phonebook.txt";
 
         /// <summary>
         /// Подгрузка телефонного списка.
         /// </summary>
-        public Phonebook() 
-        { 
+        public Phonebook()
+        {
             abonents = new List<Abonent>();
             LoadData();
         }
+
+        private static Phonebook instance;
 
         /// <summary>
         /// Реализация синглтона.
@@ -29,7 +28,7 @@ namespace Phonebook
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                     instance = new Phonebook();
                 return instance;
             }
@@ -42,7 +41,7 @@ namespace Phonebook
         /// <param name="phone">Номер телефона абонента.</param>
         public void AddPhonebook(string name, string phone)
         {
-            if(abonents.Any(ab => ab.Name == name || ab.Phone == phone))
+            if (abonents.Any(ab => ab.Name == name || ab.Phone == phone))
             {
                 Console.WriteLine("Абонент уже существует.");
                 return;
@@ -64,7 +63,7 @@ namespace Phonebook
         /// <param name="phone">Номер телефона абонента.</param>
         public void GetAbonentByPhone(string phone)
         {
-            var name = abonents.FirstOrDefault(ab => ab.Phone == phone);
+            var name = abonents.SingleOrDefault(ab => ab.Phone == phone);
             Console.Write("Имя абонента: ");
             Console.WriteLine(name != null ? name.Name : null);
         }
@@ -75,7 +74,7 @@ namespace Phonebook
         /// <param name="name">Имя абонента.</param>
         public void GetAbonentByName(string name)
         {
-            var abonent = abonents.FirstOrDefault(ab => ab.Name == name);
+            var abonent = abonents.SingleOrDefault(ab => ab.Name == name);
             Console.Write("Телефон абонента: ");
             Console.WriteLine(abonent != null ? abonent.Phone : null);
         }
@@ -86,7 +85,7 @@ namespace Phonebook
         /// <param name="phone">Номер телефона абонента.</param>
         public void RemoveContact(string phone)
         {
-            Abonent abonentToRemove = abonents.FirstOrDefault(a => a.Phone == phone);
+            Abonent abonentToRemove = abonents.SingleOrDefault(a => a.Phone == phone);
             if (abonentToRemove != null)
             {
                 abonents.Remove(abonentToRemove);
@@ -104,7 +103,7 @@ namespace Phonebook
         /// </summary>
         private void SaveData()
         {
-            using (StreamWriter writer = new StreamWriter(filePath))
+            using (StreamWriter writer = new StreamWriter(FilePath))
             {
                 foreach (var abonent in abonents)
                 {
@@ -118,9 +117,9 @@ namespace Phonebook
         /// </summary>
         private void LoadData()
         {
-            if (File.Exists(filePath))
+            if (File.Exists(FilePath))
             {
-                using (StreamReader reader = new StreamReader(filePath))
+                using (StreamReader reader = new StreamReader(FilePath))
                 {
                     string line;
                     while ((line = reader.ReadLine()) != null)

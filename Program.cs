@@ -1,8 +1,4 @@
-﻿using System;
-using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
-
-namespace Phonebook
+﻿namespace Phonebook
 {
     internal class Program
     {
@@ -14,7 +10,7 @@ namespace Phonebook
             Phonebook phonebook = Phonebook.Instance;
             Phonebook contact = new Phonebook();
 
-            while(true)
+            while (true)
             {
                 Console.WriteLine("Выберете действие.");
                 Console.WriteLine("1. Добавить новый контакт.");
@@ -24,7 +20,7 @@ namespace Phonebook
                 Console.WriteLine("5. Выйти.");
 
                 string choice = Console.ReadLine();
-                switch(choice)
+                switch (choice)
                 {
                     case "1":
                         AddAbonent(contact);
@@ -47,6 +43,8 @@ namespace Phonebook
                 Console.WriteLine();
             }
         }
+
+        #region Методы для заполнения и последующей передачей данных в другие методы в класс Phonebook
 
         /// <summary>
         /// Заполнение данных абонента для добавления в список контактов.
@@ -97,5 +95,7 @@ namespace Phonebook
 
             contact.RemoveContact(phone);
         }
+
+        #endregion
     }
 }

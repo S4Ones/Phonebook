@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Phonebook
+﻿namespace Phonebook
 {
-    
     internal class Abonent
     {
+        #region Поля абонента
+
         /// <summary>
         /// Имя абонента.
         /// </summary>
@@ -17,5 +12,7 @@ namespace Phonebook
         /// Номер телефона.
         /// </summary>
         public string Phone { get; set; }
+
+        #endregion
     }
 }
